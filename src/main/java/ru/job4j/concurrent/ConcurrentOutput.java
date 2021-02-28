@@ -11,13 +11,16 @@ public class ConcurrentOutput {
         );
         second.start();
         var terminated = Thread.State.TERMINATED;
-        while (first.getState() != terminated) {
+        while (state(first) || state(second)) {
             System.out.println("i'm wait");
         }
-        while (second.getState() != terminated) {
-            System.out.println("i'm wait too");
-        }
-        System.out.println("work completed");
+        System.out.println(first.getState() + " " + second.getState() + " work completed");
+
+    }
+
+    private static boolean state(Thread s) {
+        System.out.println(s.getName() + " " + s.getState());
+        return s.getState() != Thread.State.TERMINATED;
 
     }
 }

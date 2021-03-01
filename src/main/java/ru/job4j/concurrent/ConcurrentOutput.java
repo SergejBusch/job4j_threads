@@ -15,7 +15,6 @@ public class ConcurrentOutput {
             System.out.println("i'm wait");
         }
         System.out.println(first.getState() + " " + second.getState() + " work completed");
-
     }
 
     private static boolean state(Thread s) {

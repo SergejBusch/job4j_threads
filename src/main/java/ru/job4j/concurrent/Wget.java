@@ -15,7 +15,7 @@ public class Wget {
                             Thread.sleep(randomInt);
                         }
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        Thread.currentThread().interrupt();
                     }
                 }
         );

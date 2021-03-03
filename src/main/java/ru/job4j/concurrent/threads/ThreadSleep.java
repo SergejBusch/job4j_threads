@@ -1,4 +1,4 @@
-package ru.job4j.concurrent;
+package ru.job4j.concurrent.threads;
 
 public class ThreadSleep {
     public static void main(String[] args) {

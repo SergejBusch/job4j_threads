@@ -4,11 +4,12 @@ import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class WgetDownload implements Runnable {
     private final String url;
     private final int speed;
-    private long time;
+    private final AtomicLong atomicLong = new AtomicLong();
 
     public WgetDownload(String url, int speed) {
         this.url = url;
@@ -47,10 +48,11 @@ public class WgetDownload implements Runnable {
     }
 
     private void calculateTime(long begin, long end) {
-        time = end - begin;
+        atomicLong.set(end - begin);
     }
 
     private long getSleepTime(int numberOfBytes) {
+        long time = atomicLong.get();
         if (numberOfBytes / time > speed) {
            return time - (speed / numberOfBytes);
         }

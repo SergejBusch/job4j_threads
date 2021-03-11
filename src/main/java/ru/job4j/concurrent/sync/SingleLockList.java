@@ -1,7 +1,5 @@
 package ru.job4j.concurrent.sync;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
 
@@ -27,14 +25,10 @@ public class SingleLockList<T> implements Iterable<T> {
     }
 
     private synchronized SimpleArray<T> copy() {
-        var clazz = simpleArray.get(0).getClass();
-        TypeToken typeToken = TypeToken.get(clazz);
-        var gson = new Gson();
         var cloneList = new SimpleArray<T>();
 
         for (var e : simpleArray) {
-            cloneList.add(gson.fromJson(gson.toJson(e), typeToken.getType()));
-
+            cloneList.add(e);
         }
         return cloneList;
     }

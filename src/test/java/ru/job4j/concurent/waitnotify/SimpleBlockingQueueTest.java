@@ -11,8 +11,6 @@ import static org.hamcrest.core.Is.is;
 
 public class SimpleBlockingQueueTest {
 
-
-
     @Test
     public void whenPollAndQueueIsEmpty() {
         var list = new ArrayList<Integer>();

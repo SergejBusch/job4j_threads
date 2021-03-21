@@ -33,6 +33,9 @@ public class SimpleBlockingQueue<T> {
         synchronized (this) {
             while (queue.size() < 1) {
                 waitForThis();
+                if (Thread.currentThread().isInterrupted()) {
+                    break;
+                }
             }
             T value = queue.poll();
             this.notifyAll();

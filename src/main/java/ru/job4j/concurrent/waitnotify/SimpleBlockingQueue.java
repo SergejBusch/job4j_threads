@@ -10,18 +10,18 @@ import java.util.Queue;
 @ThreadSafe
 public class SimpleBlockingQueue<T> {
 
-    private final int size;
+    private final int limit;
 
     @GuardedBy("this")
     private final Queue<T> queue = new LinkedList<>();
 
     public SimpleBlockingQueue(int size) {
-        this.size = size;
+        this.limit = size;
     }
 
     public boolean offer(T value) {
         synchronized (this) {
-            while (queue.size() == size) {
+            while (queue.size() == limit) {
                 waitForThis();
             }
             var result = queue.add(value);

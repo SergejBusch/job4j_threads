@@ -1,4 +1,4 @@
-package ru.job4j.concurent.waitnotify;
+package ru.job4j.concurrent.waitnotify;
 
 import ru.job4j.concurrent.waitnotify.SimpleBlockingQueue;
 

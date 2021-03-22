@@ -4,6 +4,7 @@ import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
 
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 import java.util.Queue;
 
 @ThreadSafe
@@ -39,6 +40,9 @@ public class SimpleBlockingQueue<T> {
             }
             T value = queue.poll();
             this.notifyAll();
+            if (value == null) {
+                throw new NoSuchElementException();
+            }
             return value;
         }
     }
@@ -49,5 +53,9 @@ public class SimpleBlockingQueue<T> {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+    }
+
+    public synchronized boolean isEmpty() {
+        return queue.isEmpty();
     }
 }

@@ -19,11 +19,6 @@ public class RolColSum {
         }
     }
 
-    public enum Type {
-        Column,
-        Row
-    }
-
     public static Sums[] sum(int[][] matrix) {
 
         var sums = new Sums[matrix.length];
@@ -44,8 +39,8 @@ public class RolColSum {
         List<CompletableFuture<Integer>> rows = new ArrayList<>();
 
         for (int i = 0; i < matrix.length; i++) {
-            rows.add(getSum(matrix, i, Type.Column));
-            columns.add(getSum(matrix, i, Type.Row));
+            rows.add(getSum(matrix, i, true));
+            columns.add(getSum(matrix, i, false));
         }
 
         for (int i = 0; i < matrix.length; i++) {
@@ -57,11 +52,11 @@ public class RolColSum {
     }
 
     private static CompletableFuture<Integer> getSum(
-            int[][] data, int index, Type type) {
+            int[][] data, int index, boolean typeColumn) {
         return CompletableFuture.supplyAsync(() -> {
             int sum = 0;
             for (int i = 0; i < data.length; i++) {
-                if (type == Type.Column) {
+                if (typeColumn) {
                     sum += data[index][i];
                 } else {
                     sum += data[i][index];
